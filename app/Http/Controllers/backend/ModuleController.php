@@ -88,11 +88,38 @@ class ModuleController extends Controller
      */
     public function edit($id)
     {
-
-       $module = Module::find($id);
+        $module = Module::find($id);
         $role = Role::all();
-        //dd($module,$role);
-        return view('backend.module.edit',compact('module','role'));
+        $role_module=Module::join('role_modules', 'role_modules.module_id', '=', 'modules.id')->where('role_modules.module_id',$id)->get();
+        $permis_roleids=[];
+        foreach ($role as $key => $value) {
+           $allroleids[]=$value->id;
+        }
+        foreach ($role_module as $key => $value) {
+            $permis_roleids[]=$value->role_id;
+        }
+        $not_permis_roleids = array_diff($allroleids, $permis_roleids);
+      // dd($permis_roleids,$not_permis_roleids);
+        //$perm_role=[];
+        if(!empty($permis_roleids)){
+            foreach ($permis_roleids as $key => $pid) {
+            $perm_role[] = Role::where('id',$pid)->first();
+        }
+        }else{
+            $perm_role=[];
+        }
+        
+        //$no_perm_role=[];
+        if(!empty($not_permis_roleids)){
+            foreach ($not_permis_roleids as $key => $npid) {
+            $no_perm_role[] = Role::where('id',$npid)->first();
+        }
+        }else{
+            $no_perm_role=[];
+        }
+        
+        //dd($role,$perm_role,$no_perm_role);
+        return view('backend.module.edit',compact('module','role','perm_role','no_perm_role'));
     }
     /**
      * Update the specified resource in storage.
@@ -103,12 +130,28 @@ class ModuleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input=\Request::all();
         $this->validate($request, [
             'name' => 'required',
            // 'module_key' => 'required',
             'module_url' => 'required',
             'module_rank' => 'required',
         ]);
+
+        if(!empty($request->nproles)){
+        $nproles=$request->nproles;
+       }else{
+        $nproles=[];
+       }
+       if(!empty($request->proles)){
+        $proles=$request->proles;
+       }else{
+        $proles=[];
+       }
+       // dd($input,$id);
+         $res_role = array_merge($proles, $nproles); 
+        
+         
         $module = Module::where('id',$id)->update([
             'name' => $request->name,
             //'module_key' => $request->module_key,
@@ -118,22 +161,25 @@ class ModuleController extends Controller
             'module_rank' => $request->module_rank,
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        if ($module) {
-            foreach ($request->roles as $role) {
-              //  $rolemodule = new RoleModule();
-               // $rolemodule->module_id = $module->id;
-               // $rolemodule->role_id = $role;
-               // $rolemodule->save();
-                 $message1 =  DB::table('role_modules')->where('id',$role)->update(
-                array(
-              'module_id' => $id,
-              'role_id' => $role,
-             
-              
-                ));
-            }
+        
+     $mod= Module::join('role_modules', 'role_modules.module_id', '=', 'modules.id')->where('role_modules.module_id',$id)
+     ->select('role_modules.*')->get();
+     
+     foreach ($mod as $key => $per_id) {
+     DB::table('role_modules')->where('id',$per_id->id)->delete();
+    
+        }
 
-           
+        if ($module) {
+            foreach ($res_role as $role) {
+               $rolemodule = new RoleModule();
+                 $rolemodule->module_id = $id;
+                $rolemodule->role_id = $role;
+                $rolemodule->save();
+              
+            }
+        
+          
             return redirect()->route('module.list')->with('success_message', 'You are successfully Updated');
         } else {
             return redirect()->route('module.edit')->with('error_message', 'You con not create rignt now');

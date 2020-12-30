@@ -108,8 +108,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Display For &nbsp;</label>
-                                    @foreach($role as $r)
-                                        <input type="checkbox" id="{{$r->name}}" name="roles[]" value="{{$r->id}}"><label for="{{$r->name}}">{{$r->name}}</label>
+                                    @foreach($perm_role as $pr)
+                                        <input type="checkbox" id="{{$pr->name}}" name="proles[]" value="{{$pr->id}}" checked><label for="{{$pr->name}}">{{$pr->name}}</label>
+                                    @endforeach
+                                </div>
+                                <div class="form-group">
+                                    <label>No Display For &nbsp;</label>
+                                    @foreach($no_perm_role as $npr)
+                                        <input type="checkbox" id="{{$npr->name}}" name="nproles[]" value="{{$npr->id}}" ><label for="{{$npr->name}}">{{$npr->name}}</label>
                                     @endforeach
                                 </div>
                                 <!-- /.box-body -->
