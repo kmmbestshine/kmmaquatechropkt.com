@@ -65,6 +65,7 @@
                                     <th>created_date</th>
                                     <th>updated_date</th>
                                     <th>Action</th>
+                                    <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -78,6 +79,20 @@
                                         <td><a href="{{route('permission.asign',$m->id)}}" class="btn btn-info"> Asign Permission</a>
                                             {{--<a href="" class="btn btn-info"> Asign Module</a>--}}
                                         </td>
+                                        <td>
+                                        <div class="row">
+                                               {{-- <div class="col-md-5">
+                                                    <a href="{{route('user.edit',$us->id)}}" class="btn btn-info "><i class="fa fa-pencil"></i> Edit</a>
+                                                </div>--}}
+                                              <div class="col-md-5">
+                                                <form action="{{ url('role-delete' , $m->id ) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                 <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')"><i class="fa fa-trash-o"></i> Delete</button>
+                                            </form>
+                                                 
+                                                </div>
+                                            </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

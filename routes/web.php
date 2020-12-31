@@ -66,6 +66,7 @@ Route::post('/workorder-updatestatus', ['as' => 'workorder.update.task.status', 
         Route::get('/role-create', ['as' => 'role.create', 'uses' => 'backend\RoleController@create']);
         Route::post('/role-store', ['as' => 'role.store', 'uses' => 'backend\RoleController@store']);
         Route::get('/role-list', ['as' => 'role.list', 'uses' => 'backend\RoleController@index']);
+        Route::delete('/role-delete/{id}', ['as' => 'role.delete', 'uses' => 'backend\RoleController@destroy']);
 
         Route::get('/permission-create', ['as' => 'permission.create', 'uses' => 'backend\PermissionController@create']);
         Route::post('/permission-store', ['as' => 'permission.store', 'uses' => 'backend\PermissionController@store']);

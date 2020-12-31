@@ -95,6 +95,13 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Role::find($id);
+        $role->delete();
+        if ($role) {
+            
+            return redirect()->route('role.list')->with('success_message', 'You are successfully Deleted');
+        } else {
+            return redirect()->route('role.list')->with('error_message', 'You can not register ');
+        }
     }
 }
