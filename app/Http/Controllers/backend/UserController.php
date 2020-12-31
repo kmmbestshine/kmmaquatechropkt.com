@@ -27,8 +27,6 @@ class UserController extends Controller
 
     public function userlist()
     {
-        //dd('kkkk');
-       // $this->checkpermission('user-register');
         $users = User::all();
         return view('backend.user.list', compact('users'));
     }
@@ -42,7 +40,7 @@ class UserController extends Controller
     {
         $this->checkpermission('user-register');
         $role = Role::all();
-        return view('backend.user.register', compact('role'));
+        return view('backend.user.create', compact('role'));
     }
 
     /**
@@ -98,7 +96,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+      $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+        ->join('roles', 'roles.id', '=', 'user_roles.role_id')
+        ->where('users.id',$id)->select('users.*','roles.name as role_name','roles.id as role_id')->first();
+        return view('backend.user.edit', compact('users'));
     }
 
     /**
@@ -110,7 +111,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      
+        $message = User::where('id',$id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'remember_token' => $request->password,
+            'status' => $request->status,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        if ($message) {
+          //  UserRole::create([
+              //  'role_id' => $request->role,
+              //  'user_id' => $message->id
+          //  ]);
+            return redirect()->route('user.list')->with('success_message', 'You are successfully Updated');
+        } else {
+            return redirect()->route('user.edit')->with('error_message', 'You can not update ');
+        }
     }
 
     /**

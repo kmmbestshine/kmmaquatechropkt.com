@@ -69,8 +69,8 @@
                                     <th>Password</th>
                                     <th>Email Id</th>
                                     <th>Last Login</th>
-                                    <th>Active</th>
-                                    <th></th>
+                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -83,8 +83,28 @@
                                         <td>{{$us->remember_token}} </td>
                                         <td> {{$us->email}}</td>
                                         <td> {{$us->last_login}}</td>
-                                        <td> {{$us->status}}</td>
-                                        
+                                        <td>
+                                            @if($us->status == 1)
+                                                <span class="label label-success"> Active </span>
+                                            @else
+                                                <span class="label label-danger">DeActive</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <a href="{{route('user.edit',$us->id)}}" class="btn btn-info "><i class="fa fa-pencil"></i> Edit</a>
+                                                </div>
+                                              {{--  <div class="col-md-5">
+                                                    <form action="{{route('user.delete',$us->id)}}" method="post">
+                                                        {{ csrf_field()}}
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        
+                                                        <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')"><i class="fa fa-trash-o"></i> Delete</button>
+                                                    </form>
+                                                </div>--}}
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -19,7 +19,9 @@ Route::group(['middleware' => 'Revalidate'],function() {
     Route::group(['middleware' => 'Authenticate'], function () {
 
         Route::get('/dashboard-panel', ['as' => 'user.dashboard', 'uses' => 'backend\DashboardController@index']);
-
+        Route::post('/user-delete/{id}', ['as' => 'user.delete', 'uses' => 'backend\UserController@destroy']);
+        Route::get('/user-edit/{id}', ['as' => 'user.edit', 'uses' => 'backend\UserController@edit']);
+        Route::post('/user-update/{id}', ['as' => 'user.update', 'uses' => 'backend\UserController@update']);
 
         Route::get('/user-list', ['as' => 'user.list', 'uses' => 'backend\UserController@userlist']);
         Route::get('/user-register', ['as' => 'user.register', 'uses' => 'backend\UserController@create']);
