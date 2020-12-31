@@ -96,7 +96,7 @@
                                                     <form action="" method="post">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         {{ csrf_field()}}
-                                                        <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')" readonly><i class="fa fa-trash-o"></i> Delete</button>
+                                                        <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')" disabled><i class="fa fa-trash-o"></i> Delete</button>
                                                     </form>
                                                 </div>
                                             </div>
