@@ -97,14 +97,14 @@
                                                 <div class="col-md-5">
                                                     <a href="{{route('user.edit',$us->id)}}" class="btn btn-info "><i class="fa fa-pencil"></i> Edit</a>
                                                 </div>
-                                              {{--  <div class="col-md-5">
-                                                    <form action="{{route('user.delete',$us->id)}}" method="post">
-                                                        {{ csrf_field()}}
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        
-                                                        <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')"><i class="fa fa-trash-o"></i> Delete</button>
-                                                    </form>
-                                                </div>--}}
+                                              <div class="col-md-5">
+                                                <form action="{{ url('user-delete' , $us->id ) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                 <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')"><i class="fa fa-trash-o"></i> Delete</button>
+                                            </form>
+                                                 
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

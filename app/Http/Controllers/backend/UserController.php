@@ -143,7 +143,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
+        $user = User::find($id);
+        $user->delete();
+        if ($user) {
+            
+            return redirect()->route('user.list')->with('success_message', 'You are successfully Deleted');
+        } else {
+            return redirect()->route('user.list')->with('error_message', 'You can not register ');
+        }
     }
     public function login(Request $request)
     {
