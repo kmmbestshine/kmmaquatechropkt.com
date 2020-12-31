@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section('title')
-   Service Order Listing Page
+   User Listing Page
 @endsection
 @section('css')
     <link  href="{{asset('backend/plugins/datepicker/datepicker.css')}}" rel="stylesheet">
@@ -11,7 +11,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Service Order Management</h3>
+                    <h3>User Management</h3>
                 </div>
                 <div class="title_right">
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group top_search">
@@ -41,7 +41,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Listing Service Order Deails</h2>
+                            <h2>Listing User Deails</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
