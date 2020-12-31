@@ -17,7 +17,7 @@
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                         <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 100px;">
                             <div class="input-group">
-                                <a href="{{route('module.create')}}" class="btn btn-success">Create New Module</a>
+                                <a href="{{route('module.create')}}" class="btn btn-success" disabled>Create New Module</a>
                             </div>
                         </div>
                     </div>
