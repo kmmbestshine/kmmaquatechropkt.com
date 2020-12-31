@@ -65,6 +65,7 @@
                                 <tr>
                                     <th>S.N.</th>
                                     <th>Name</th>
+                                    <th>Role</th>
                                     <th>User Name</th>
                                     <th>Password</th>
                                     <th>Email Id</th>
@@ -79,6 +80,7 @@
                                     <tr>
                                         <th> {{$i++}}</th>
                                         <td> {{$us->name}}</td>
+                                        <td> {{$us->role_name}}</td>
                                         <td> {{$us->username}}</td>
                                         <td>{{$us->remember_token}} </td>
                                         <td> {{$us->email}}</td>

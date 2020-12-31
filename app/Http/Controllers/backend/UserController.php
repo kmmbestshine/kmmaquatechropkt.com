@@ -27,7 +27,10 @@ class UserController extends Controller
 
     public function userlist()
     {
-        $users = User::all();
+        $users = User::join('user_roles', 'user_roles.user_id', '=', 'users.id')
+        ->join('roles', 'roles.id', '=', 'user_roles.role_id')
+        ->select('users.*','roles.name as role_name')->get();
+       // $users = User::all();
         return view('backend.user.list', compact('users'));
     }
 
